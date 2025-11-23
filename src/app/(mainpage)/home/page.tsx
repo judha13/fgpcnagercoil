@@ -44,7 +44,7 @@ export default function HomePage() {
 
             {/* Description */}
             <p className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-white font-normal px-2 sm:px-0">
-              Together, y build the Kingdom of God through love, service, and faith, creating a community rooted in His grace
+              Together, we build the Kingdom of God through love, service, and faith, creating a community rooted in His grace
             </p>
 
             {/* Buttons - Always in Single Row */}
@@ -76,84 +76,80 @@ export default function HomePage() {
       </div>
 
       {/* About Section */}
-      <section className="py-20 pt-5 bg-white font-poppins text-[#222831]">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-6 max-w-6xl">
-          {/* Title and Description */}
-          <div className="text-center mb-8 blur-down">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl leading-tight font-bold text-[#222831] font-montserrat blur_fade_in_up">
-              <span className="text-[#84373d]">Full Gospel</span> Pentecostel Church
-            </h1>
-            <p className="text-[#212121] mt-4 text-sm sm:text-base leading-relaxed px-2 sm:px-8 md:px-16 blur_fade_in_up">
-              The ministry began in 1979 under Pastor Kruthudas Samuel amidst many challenges.
-              In 1987, Pastor Joyson took responsibility, leading the ministry with strong faith and hope despite a small congregation and health struggles.
-              Through God&apos;s guidance and vision, the ministry continued to grow and bless many lives.
-              <Link href="/aboutus"><span className="text-[#84373d] cursor-pointer"> Know More</span></Link>
+      <section className="py-20 bg-white font-poppins text-[#222831]">
+        <div className="container mx-auto px-6 max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-20 items-center">
+
+          {/* Left Column - Content (60%) */}
+          <div className="order-2 md:order-1 md:col-span-3">
+            <h2 className="text-3xl md:text-4xl font-bold font-montserrat leading-snug">
+              <span className="text-[#84373d]">Full Gospel</span> Pentecostal Church
+            </h2>
+
+            <p className="text-[#212121] mt-4 text-base leading-relaxed text-justify">
+              The ministry began in 1979 under Pastor Kristhudas Samuel. In 1987,
+              Pastor Joyson took charge, leading the ministry with strong faith,
+              commitment, and God’s vision. Over the years, the ministry has grown
+              into a blessing for countless lives.
+              <Link href="/aboutus">
+                <span className="text-[#84373d] cursor-pointer"> Know More</span>
+              </Link>
             </p>
 
             {/* Social Links */}
-            <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 mt-4 text-[#6D4C41]">
-              {[
-                { icon: "fab fa-youtube", label: "fgpcngl", link: "https://www.youtube.com/@fgpcngl" },
-                { icon: "fab fa-instagram", label: "fgpcnagercoil", link: "https://www.instagram.com/fgpcnagercoil" },
-                { icon: "fab fa-facebook", label: "fgpcnagercoil", link: "https://www.facebook.com/fgpcnagercoil" },
-              ].map((item, idx) => (
-                <a
-                  key={idx}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-[#692A2F] transition text-sm sm:text-base blur_fade_in_up"
-                >
-                  <i className={`${item.icon} text-base text-[#84373d]`}></i>
-                  <p className="text-[#222831]">{item.label}</p>
-                </a>
-              ))}
+            <div className="mt-6">
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { icon: "fab fa-youtube", label: "fgpcngl", link: "https://www.youtube.com/@fgpcngl" },
+                  { icon: "fab fa-instagram", label: "fgpcnagercoil", link: "https://www.instagram.com/fgpcnagercoil" },
+                  { icon: "fab fa-facebook", label: "fgpcnagercoil", link: "https://www.facebook.com/fgpcnagercoil" }
+                ].map((item, idx) => (
+                  <a
+                    key={idx}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-row items-center justify-center gap-2 p-2 
+                   bg-[#F5F5F5] rounded-lg shadow hover:bg-[#84373D] hover:text-white 
+                   cursor-pointer transition-colors duration-300 ease-in-out 
+                   min-w-[120px]"
+                  >
+                    <i className={`${item.icon} text-xl`}></i>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Info */}
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              <div className="p-5 border rounded-xl shadow-sm bg-[#ebebeb]">
+                <h3 className="text-lg font-bold text-[#413b3b]">Started At</h3>
+                <p className="text-sm mt-2 text-[#333]">
+                  Ministry founded in 1979 by Pastor Kristhudas Samuel.
+                </p>
+              </div>
+
+              <div className="p-5 border rounded-xl shadow-sm bg-[#413b3b] text-white">
+                <h3 className="text-lg font-bold">Location</h3>
+                <p className="text-sm mt-2">
+                  174, Church Street, Vettoornimadam, Nagercoil-629003.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Cards Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-8 p-4 sm:p-6 justify-items-center">
-            {/* Card Template */}
-            {[
-              {
-                icon: "fas fa-calendar-day",
-                title: "Started At",
-                content: "The ministry began in 1979 under the leadership of Pastor Kruthudas Samuel."
-              },
-              {
-                icon: "fas fa-user-tie",
-                title: "Founder",
-                content: "In 1987, Pastor Joyson took charge and guided the ministry with faith and vision."
-              },
-              {
-                icon: "fas fa-location-arrow",
-                title: "Location",
-                content: "174, Church Street, Vettoornimadam, Nagercoil-629 003, India."
-              },
-            ].map((card, idx) => (
-              <Link
-                key={idx}
-                href="/aboutus"
-                className="relative w-full max-w-xs rounded-[10px] border-2 shadow-[1px_8px_12px_0px_rgba(0,0,0,0.12)] block group blur_fade_in_up"
-              >
-                {/* Icon Badge */}
-                <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#413b3b] text-white w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 flex items-center justify-center rounded-full border-4 border-white">
-                  <i className={`${card.icon} text-lg sm:text-xl md:text-2xl m-2`}></i>
-                </div>
-
-                {/* Top Section */}
-                <div className="bg-[#ebebeb] rounded-t-[10px] text-center p-4 sm:p-5 md:p-6">
-                  <h3 className="text-lg sm:text-xl font-bold text-[#413b3b] mt-4">{card.title}</h3>
-                </div>
-
-                {/* Bottom Section */}
-                <div className="bg-[#413b3b] rounded-b-[10px] text-center p-4 sm:p-5 md:p-6">
-                  <p className="text-white text-sm sm:text-base mt-2">
-                    {card.content}
-                  </p>
-                </div>
-              </Link>
-            ))}
+          {/* Right Column - Pastor Image (40%) */}
+          <div className="flex justify-center md:justify-end order-1 md:order-2 md:col-span-2">
+            <Link href="/aboutus" className="relative group block">
+              <Image
+                src="/aboutus/about_1(pr.joyson).jpg"
+                alt="Pastor Joyson"
+                width={500}
+                height={400}
+                className="rounded-2xl shadow-xl object-cover w-full max-w-md"
+              />
+            </Link>
           </div>
         </div>
       </section>
