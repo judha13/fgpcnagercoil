@@ -33,9 +33,9 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 leading-relaxed text-justify">
             <p className='blur_fade_in_up'>
-              In the year 1979, <span className="text-[#84373d]">Pastor Kruthudas Samuel </span> start this ministry.
+              In the year 1979, <span className="text-[#84373d]">Pastor Kristhudas Samuel </span> start this ministry.
               In the early days of this ministry, there were trials, struggles, and many weaknesses.
-              During this time, Pastor Kruthudas Samuel went to the Dharmapuri ministry.
+              During this time, Pastor Kristhudas Samuel went to the Dharmapuri ministry.
               God wants the ministry to keep going smoothly, without any stops.
               The ministry belongs to the Lord — no one can stop what He intends to do.
             </p>
