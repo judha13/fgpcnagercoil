@@ -77,83 +77,79 @@ export default function HomePage() {
 
       {/* About Section */}
       <section className="py-20 bg-white font-poppins text-[#222831]">
-        <div className="container mx-auto px-4 max-w-6xl">
+        <div className="container mx-auto px-6 max-w-6xl grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-20 items-center">
 
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Column - Content (60%) */}
+          <div className="order-2 md:order-1 md:col-span-3">
+            <h2 className="text-3xl md:text-4xl font-bold font-montserrat leading-snug">
+              <span className="text-[#84373d]">Full Gospel</span> Pentecostal Church
+            </h2>
 
-            {/* Left - Image */}
-            <div>
-              {/* <h1 className="text-3xl md:text-4xl font-bold font-montserrat leading-snug">
-                <span className="text-[#84373d]">Full Gospel</span> Pentecostal Church
-              </h1> */}
+            <p className="text-[#212121] mt-4 text-base leading-relaxed text-justify">
+              The ministry began in 1979 under Pastor Kristhudas Samuel. In 1987,
+              Pastor Joyson took charge, leading the ministry with strong faith,
+              commitment, and God’s vision. Over the years, the ministry has grown
+              into a blessing for countless lives.
+              <Link href="/aboutus">
+                <span className="text-[#84373d] cursor-pointer"> Know More</span>
+              </Link>
+            </p>
 
-              <p className="text-[#212121] mt-4 text-base leading-relaxed text-justify">
-                The ministry began in 1979 under Pastor Kristhudas Samuel. In 1987,
-                Pastor Joyson took charge, leading the ministry with strong faith,
-                commitment, and God’s vision. Over the years, the ministry has grown
-                into a blessing for countless lives.
-                <Link href="/aboutus">
-                  <span className="text-[#84373d] cursor-pointer"> Know More</span>
-                </Link>
-              </p>
-
-              {/* Social Links */}
-              <div className="mt-6">
-                <div className="flex flex-wrap gap-3">
-                  {[
-                    { icon: "fab fa-youtube", label: "fgpcngl", link: "https://www.youtube.com/@fgpcngl" },
-                    { icon: "fab fa-instagram", label: "fgpcnagercoil", link: "https://www.instagram.com/fgpcnagercoil" },
-                    { icon: "fab fa-facebook", label: "fgpcnagercoil", link: "https://www.facebook.com/fgpcnagercoil" }
-                  ].map((item, idx) => (
-                    <a
-                      key={idx}
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex flex-row items-center justify-center gap-2 p-2 
+            {/* Social Links */}
+            <div className="mt-6">
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { icon: "fab fa-youtube", label: "fgpcngl", link: "https://www.youtube.com/@fgpcngl" },
+                  { icon: "fab fa-instagram", label: "fgpcnagercoil", link: "https://www.instagram.com/fgpcnagercoil" },
+                  { icon: "fab fa-facebook", label: "fgpcnagercoil", link: "https://www.facebook.com/fgpcnagercoil" }
+                ].map((item, idx) => (
+                  <a
+                    key={idx}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-row items-center justify-center gap-2 p-2 
                    bg-[#F5F5F5] rounded-lg shadow hover:bg-[#84373D] hover:text-white 
                    cursor-pointer transition-colors duration-300 ease-in-out 
                    min-w-[120px]"
-                    >
-                      <i className={`${item.icon} text-xl`}></i>
-                      <span className="text-sm font-medium">{item.label}</span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              {/* Quick Info */}
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-
-                <div className="p-5 border rounded-xl shadow-sm bg-[#ebebeb]">
-                  <h3 className="text-lg font-bold text-[#413b3b]">Started At</h3>
-                  <p className="text-sm mt-2 text-[#333]">
-                    Ministry founded in 1979 by Pastor Kristhudas Samuel.
-                  </p>
-                </div>
-
-                <div className="p-5 border rounded-xl shadow-sm bg-[#413b3b] text-white">
-                  <h3 className="text-lg font-bold">Location</h3>
-                  <p className="text-sm mt-2">
-                    174, Church Street, Vettoornimadam, Nagercoil-629003.
-                  </p>
-                </div>
+                  >
+                    <i className={`${item.icon} text-xl`}></i>
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </a>
+                ))}
               </div>
             </div>
 
-            {/* Right - Content */}
-            <div className="w-full flex justify-center">
-              <Link href="/aboutus" className="relative group block">
-                <Image
-                  src="/aboutus/about_1(pr.joyson).jpg"
-                  alt="Pastor Joyson"
-                  width={500}
-                  height={400}
-                  className="rounded-2xl shadow-xl object-cover w-full max-w-md"
-                />
-              </Link>
+            {/* Quick Info */}
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+              <div className="p-5 border rounded-xl shadow-sm bg-[#ebebeb]">
+                <h3 className="text-lg font-bold text-[#413b3b]">Started At</h3>
+                <p className="text-sm mt-2 text-[#333]">
+                  Ministry founded in 1979 by Pastor Kristhudas Samuel.
+                </p>
+              </div>
+
+              <div className="p-5 border rounded-xl shadow-sm bg-[#413b3b] text-white">
+                <h3 className="text-lg font-bold">Location</h3>
+                <p className="text-sm mt-2">
+                  174, Church Street, Vettoornimadam, Nagercoil-629003.
+                </p>
+              </div>
             </div>
+          </div>
+
+          {/* Right Column - Pastor Image (40%) */}
+          <div className="flex justify-center md:justify-end order-1 md:order-2 md:col-span-2">
+            <Link href="/aboutus" className="relative group block">
+              <Image
+                src="/aboutus/about_1(pr.joyson).jpg"
+                alt="Pastor Joyson"
+                width={500}
+                height={400}
+                className="rounded-2xl shadow-xl object-cover w-full max-w-md"
+              />
+            </Link>
           </div>
         </div>
       </section>
