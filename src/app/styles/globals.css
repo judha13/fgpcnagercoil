@@ -123,29 +123,24 @@ body {
   animation: wobble 1s ease-in-out infinite;
 }
 
-/* styles/globals.css or BlurAnimation.module.css */
-.background-blur {
-  backdrop-filter: blur(10px);
-}
-@keyframes blurFadeInUp {
+/* styles/globals.css or FadeAnimation.module.css */
+@keyframes fadeInUp {
   0% {
     transform: translateY(10%);
     opacity: 0;
-    filter: blur(10px);
   }
 
   100% {
     transform: translateY(0);
     opacity: 1;
-    filter: blur(0);
   }
 }
 
-.blur_fade_in_up {
+.fade_in_up {
   opacity: 0;
   transition: opacity 0.3s ease-out;
 }
 
 .fade-animated-up {
-  animation: blurFadeInUp 1s ease-out forwards;
+  animation: fadeInUp 1s ease-out forwards;
 }
