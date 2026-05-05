@@ -103,11 +103,11 @@ export default function ThemeHero() {
         <motion.div style={{ opacity: bg1Opacity }} className="absolute inset-0">
           <ImageSequence
             progress={mainProgress}
-            frameCount={isMounted && window.innerWidth < 768 ? 112 : 120}
+            frameCount={120}
             directory={isMounted && window.innerWidth < 768 ? "/images/mobile/sequence_2" : "/images/desktop/sequence_2"}
-            prefix="ezgif-frame-"
+            prefix="frame_"
             extension="jpg"
-            digits={3}
+            digits={4}
           />
         </motion.div>
         {/* Subtle Blur & Overlay Layer */}
