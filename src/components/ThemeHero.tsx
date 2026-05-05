@@ -109,10 +109,10 @@ export default function ThemeHero() {
             extension="jpg"
             digits={4}
           />
+          {/* Subtle Blur & Overlay Layer specifically for Sequence 2 */}
+          <div className="absolute inset-0 backdrop-blur-[2px] bg-emerald-950/40 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/80 via-transparent to-emerald-950/90 pointer-events-none" />
         </motion.div>
-        {/* Subtle Blur & Overlay Layer */}
-        {/* <div className="absolute inset-0 backdrop-blur-[1px] bg-emerald-950/40 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/60 via-transparent to-emerald-950/80 pointer-events-none" /> */}
       </div>
 
       {/* Floating Particles */}

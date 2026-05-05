@@ -21,7 +21,7 @@ const cards = [
 export default function FaithDanceSection() {
   return (
     <section className="relative z-10 h-full flex items-center overflow-hidden py-10">
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+      <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
           {cards.map((card, cIdx) => (
             <motion.div
