@@ -20,6 +20,19 @@ export default function ThemeHero() {
     offset: ["start start", "end end"]
   });
 
+  const [introLoaded, setIntroLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!introLoaded) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [introLoaded]);
+
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -40,6 +53,14 @@ export default function ThemeHero() {
   });
 
   useEffect(() => {
+    // Force scroll to top on mount/refresh
+    window.scrollTo(0, 0);
+    
+    // Disable browser's automatic scroll restoration to ensure cinematic sequence starts at the beginning
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
     const timer = setTimeout(() => setIsMounted(true), 0);
     return () => clearTimeout(timer);
   }, []);
@@ -83,6 +104,9 @@ export default function ThemeHero() {
   // Background Opacities - using mainProgress
   const bg1Opacity = useTransform(mainProgress, [0, 0.05, 0.7, 0.8], [0, 1, 1, 0]); // Image Sequence Base (Fades in after intro)
 
+  // Scroll Indicator Visibility
+  const scrollIndicatorOpacity = useTransform(smoothProgress, [0, 0.02], [1, 0]);
+
   return (
     <div id="theme-hero-container" ref={containerRef} className="relative h-[1000vh] bg-emerald-950">
       {/* Dynamic Background Layers */}
@@ -96,6 +120,7 @@ export default function ThemeHero() {
             prefix="frame_"
             extension="jpg"
             digits={4}
+            onLoadComplete={() => setIntroLoaded(true)}
           />
         </motion.div>
 
@@ -127,6 +152,45 @@ export default function ThemeHero() {
           />
         ))}
       </div>
+
+      {/* Cinematic Loading Overlay */}
+      {!introLoaded && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-emerald-950">
+          <div className="relative w-24 h-24 mb-6">
+            <div className="absolute inset-0 border-4 border-amber-500/20 rounded-full" />
+            <div className="absolute inset-0 border-4 border-amber-500 rounded-full border-t-transparent animate-spin" />
+            <div className="absolute inset-4 bg-amber-500/10 rounded-full flex items-center justify-center">
+               <i className="fas fa-leaf text-amber-500 animate-pulse"></i>
+            </div>
+          </div>
+          <div className="text-amber-200 font-black tracking-[0.3em] text-sm animate-pulse mb-2">PREPARING JOURNEY</div>
+          <div className="text-emerald-500/50 text-[10px] uppercase font-bold tracking-widest">Entering the Fragrance</div>
+        </div>
+      )}
+
+      {/* Scroll Down Indicator */}
+      {introLoaded && (
+        <motion.div 
+          style={{ opacity: scrollIndicatorOpacity }}
+          className="fixed bottom-10 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-3"
+        >
+          <span className="text-amber-400/50 text-[10px] font-bold uppercase tracking-[0.3em]">Scroll to Begin</span>
+          <div className="w-6 h-10 border-2 border-amber-500/30 rounded-full flex justify-center p-1.5">
+            <motion.div 
+              animate={{ 
+                y: [0, 12, 0],
+                opacity: [0.3, 1, 0.3]
+              }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+              className="w-1.5 h-1.5 bg-amber-400 rounded-full"
+            />
+          </div>
+        </motion.div>
+      )}
 
       {/* Sticky Content Container */}
       <div className="sticky top-0 h-screen w-full flex items-center justify-center z-20 overflow-hidden">

@@ -10,9 +10,18 @@ interface ImageSequenceProps {
   prefix: string;
   extension: string;
   digits?: number;
+  onLoadComplete?: () => void;
 }
 
-export default function ImageSequence({ progress, frameCount, directory, prefix, extension, digits = 3 }: ImageSequenceProps) {
+export default function ImageSequence({ 
+  progress, 
+  frameCount, 
+  directory, 
+  prefix, 
+  extension, 
+  digits = 3,
+  onLoadComplete 
+}: ImageSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,31 +31,26 @@ export default function ImageSequence({ progress, frameCount, directory, prefix,
 
   useEffect(() => {
     const preloadImages = async () => {
-      const loadedImages: HTMLImageElement[] = [];
-      let loadedCount = 0;
-
-      for (let i = 1; i <= frameCount; i++) {
-        const img = new Image();
-        const frameStr = i.toString().padStart(digits, '0');
-        img.src = `${directory}/${prefix}${frameStr}.${extension}`;
-        
-        img.decode().then(() => {
-          loadedCount++;
-          if (loadedCount === frameCount) {
-            setIsLoaded(true);
-          }
-        }).catch(() => {
-          // Fallback if decode fails or is not supported
-          loadedCount++;
-          if (loadedCount === frameCount) setIsLoaded(true);
+      const loadPromises = Array.from({ length: frameCount }, (_, i) => {
+        return new Promise<HTMLImageElement>((resolve, reject) => {
+          const img = new Image();
+          const frameStr = (i + 1).toString().padStart(digits, '0');
+          img.src = `${directory}/${prefix}${frameStr}.${extension}`;
+          
+          img.decode()
+            .then(() => resolve(img))
+            .catch(() => resolve(img)); // Resolve anyway to not block others
         });
-        loadedImages.push(img);
-      }
+      });
+
+      const loadedImages = await Promise.all(loadPromises);
       setImages(loadedImages);
+      setIsLoaded(true);
+      onLoadComplete?.();
     };
 
     preloadImages();
-  }, [frameCount, directory, prefix, extension]);
+  }, [frameCount, directory, prefix, extension, digits, onLoadComplete]);
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -20,9 +20,9 @@ const cards = [
 
 export default function FaithDanceSection() {
   return (
-    <section className="relative z-10 h-full flex items-center overflow-hidden py-10">
+    <section className="relative z-10 h-full flex items-center overflow-hidden py-12">
       <div className="container mx-auto px-6 max-w-[1400px] relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
           {cards.map((card, cIdx) => (
             <motion.div
               key={card.title}
@@ -32,7 +32,7 @@ export default function FaithDanceSection() {
               transition={{ duration: 0.8, delay: cIdx * 0.2 }}
               className="group relative bg-emerald-950/40 backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-emerald-500/10 hover:border-amber-500/30 transition-all duration-700 hover:shadow-[0_0_50px_rgba(245,158,11,0.1)]"
             >
-              <div className="relative h-64 md:h-72 overflow-hidden">
+              <div className="relative h-44 md:h-72 overflow-hidden">
                 <Image 
                   src={card.image} 
                   alt={card.title} 
@@ -50,19 +50,19 @@ export default function FaithDanceSection() {
                     <i className="fas fa-play text-xl ml-1"></i>
                   </motion.div>
                 </div>
-
+ 
                 {/* Badge Icon */}
                 <div className="absolute top-6 left-6 w-12 h-12 bg-emerald-950/80 backdrop-blur-md rounded-2xl flex items-center justify-center border border-emerald-500/20 shadow-xl group-hover:border-amber-500/40 transition-colors duration-500">
                   <i className={`fas ${card.icon} text-amber-400 text-lg`}></i>
                 </div>
               </div>
-
-              <div className="p-8 pt-6">
+ 
+              <div className="p-6 md:p-8 pt-6">
                 <div className="flex items-center gap-3 mb-3">
                    <div className="h-px w-8 bg-amber-500/50" />
                    <span className="text-amber-500/80 text-[10px] uppercase tracking-[0.3em] font-bold">Highlight</span>
                 </div>
-                <h3 className="text-2xl md:text-3xl font-black text-white mb-3 tracking-tight group-hover:text-amber-100 transition-colors duration-500">{card.title}</h3>
+                <h3 className="text-xl md:text-3xl font-black text-white mb-3 tracking-tight group-hover:text-amber-100 transition-colors duration-500">{card.title}</h3>
                 <p className="text-emerald-100/60 text-sm leading-relaxed mb-4">{card.desc}</p>
                 
                 <div className="inline-flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-widest cursor-pointer group/link">
