@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { MotionValue, useTransform } from 'framer-motion';
 
 interface ImageSequenceProps {
   progress: MotionValue<number>;
@@ -9,9 +9,10 @@ interface ImageSequenceProps {
   directory: string;
   prefix: string;
   extension: string;
+  digits?: number;
 }
 
-export default function ImageSequence({ progress, frameCount, directory, prefix, extension }: ImageSequenceProps) {
+export default function ImageSequence({ progress, frameCount, directory, prefix, extension, digits = 3 }: ImageSequenceProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,7 +27,7 @@ export default function ImageSequence({ progress, frameCount, directory, prefix,
 
       for (let i = 1; i <= frameCount; i++) {
         const img = new Image();
-        const frameStr = i.toString().padStart(3, '0');
+        const frameStr = i.toString().padStart(digits, '0');
         img.src = `${directory}/${prefix}${frameStr}.${extension}`;
         
         img.decode().then(() => {

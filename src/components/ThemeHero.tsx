@@ -40,7 +40,8 @@ export default function ThemeHero() {
   });
 
   useEffect(() => {
-    setIsMounted(true);
+    const timer = setTimeout(() => setIsMounted(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   // Timeline splitting: 0-0.1 for Intro, 0.1-1.0 for Main content
@@ -50,13 +51,10 @@ export default function ThemeHero() {
   const introOpacity = useTransform(smoothProgress, [0, 0.08, 0.1], [1, 1, 0]);
 
   // Parallax and Global Travel for background - using mainProgress
-  const bgY = useTransform(mainProgress, [0, 1], ["0%", "-5%"]);
-  const bgScale = useTransform(mainProgress, [0, 0.3, 0.6, 0.9, 1], [1, 1.25, 1.5, 1.8, 2.2]);
 
   // Hero Section (Shifted to start after intro)
   const heroOpacity = useTransform(mainProgress, [0, 0.05, 0.08, 0.12], [0, 1, 1, 0]);
   const heroScale = useTransform(mainProgress, [0, 0.12], [1, 0.8]);
-  const heroY = useTransform(mainProgress, [0, 0.12], [0, -50]);
 
   // Highlights Sequential Reveals - using mainProgress
   const highlight1Opacity = useTransform(mainProgress, [0.12, 0.18, 0.28, 0.34], [0, 1, 1, 0]);
@@ -84,8 +82,6 @@ export default function ThemeHero() {
 
   // Background Opacities - using mainProgress
   const bg1Opacity = useTransform(mainProgress, [0, 0.05, 0.7, 0.8], [0, 1, 1, 0]); // Image Sequence Base (Fades in after intro)
-  const bgFragranceOpacity = useTransform(mainProgress, [0.25, 0.35, 0.7, 0.75], [0, 1, 1, 0]); // Highlights
-  const bgThemeOpacity = useTransform(mainProgress, [0.7, 0.75], [0, 1]); // Theme chapters
 
   return (
     <div id="theme-hero-container" ref={containerRef} className="relative h-[1000vh] bg-emerald-950">
@@ -95,10 +91,11 @@ export default function ThemeHero() {
         <motion.div style={{ opacity: introOpacity }} className="absolute inset-0">
           <ImageSequence
             progress={introProgress}
-            frameCount={80}
+            frameCount={79}
             directory={isMounted && window.innerWidth < 768 ? "/images/mobile/sequence_1" : "/images/desktop/sequence_1"}
-            prefix="ezgif-frame-"
+            prefix="frame_"
             extension="jpg"
+            digits={4}
           />
         </motion.div>
 
@@ -106,15 +103,16 @@ export default function ThemeHero() {
         <motion.div style={{ opacity: bg1Opacity }} className="absolute inset-0">
           <ImageSequence
             progress={mainProgress}
-            frameCount={120}
+            frameCount={isMounted && window.innerWidth < 768 ? 112 : 120}
             directory={isMounted && window.innerWidth < 768 ? "/images/mobile/sequence_2" : "/images/desktop/sequence_2"}
             prefix="ezgif-frame-"
             extension="jpg"
+            digits={3}
           />
         </motion.div>
         {/* Subtle Blur & Overlay Layer */}
-        <div className="absolute inset-0 backdrop-blur-[1px] bg-emerald-950/40 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/60 via-transparent to-emerald-950/80 pointer-events-none" />
+        {/* <div className="absolute inset-0 backdrop-blur-[1px] bg-emerald-950/40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-emerald-950/60 via-transparent to-emerald-950/80 pointer-events-none" /> */}
       </div>
 
       {/* Floating Particles */}
