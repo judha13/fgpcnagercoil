@@ -29,9 +29,10 @@ export default function ThemeHero() {
   const [activeId, setActiveId] = useState('vbs2026');
 
   useMotionValueEvent(smoothProgress, "change", (latest) => {
-    if (latest < 0.12) {
+    // Adjusted thresholds: intro (0.1) + main relative progress
+    if (latest < 0.22) { // 0.1 + (0.12 * 0.9)
       if (activeId !== 'vbs2026') setActiveId('vbs2026');
-    } else if (latest < 0.7) {
+    } else if (latest < 0.73) { // 0.1 + (0.7 * 0.9)
       if (activeId !== 'highlights') setActiveId('highlights');
     } else {
       if (activeId !== 'theme') setActiveId('theme');
@@ -42,52 +43,69 @@ export default function ThemeHero() {
     setIsMounted(true);
   }, []);
 
-  // Parallax and Global Travel for background
-  const bgY = useTransform(smoothProgress, [0, 1], ["0%", "-5%"]);
-  const bgScale = useTransform(smoothProgress, [0, 0.3, 0.6, 0.9, 1], [1, 1.25, 1.5, 1.8, 2.2]);
+  // Timeline splitting: 0-0.1 for Intro, 0.1-1.0 for Main content
+  const introProgress = useTransform(smoothProgress, [0, 0.1], [0, 1]);
+  const mainProgress = useTransform(smoothProgress, [0.1, 1], [0, 1]);
 
-  // Hero Section (0 - 0.12)
-  const heroOpacity = useTransform(smoothProgress, [0, 0.08, 0.12], [1, 1, 0]);
-  const heroScale = useTransform(smoothProgress, [0, 0.12], [1, 0.8]);
-  const heroY = useTransform(smoothProgress, [0, 0.12], [0, -50]);
+  const introOpacity = useTransform(smoothProgress, [0, 0.08, 0.1], [1, 1, 0]);
 
-  // Highlights Sequential Reveals (0.12 - 0.6) - No gap after Hero
-  const highlight1Opacity = useTransform(smoothProgress, [0.12, 0.18, 0.28, 0.34], [0, 1, 1, 0]);
-  const highlight1Y = useTransform(smoothProgress, [0.12, 0.18, 0.28, 0.34], [50, 0, 0, -50]);
-  const highlight1Scale = useTransform(smoothProgress, [0.12, 0.18, 0.28, 0.34], [0.9, 1, 1, 1.1]);
+  // Parallax and Global Travel for background - using mainProgress
+  const bgY = useTransform(mainProgress, [0, 1], ["0%", "-5%"]);
+  const bgScale = useTransform(mainProgress, [0, 0.3, 0.6, 0.9, 1], [1, 1.25, 1.5, 1.8, 2.2]);
 
-  const highlight2Opacity = useTransform(smoothProgress, [0.34, 0.4, 0.5, 0.56], [0, 1, 1, 0]);
-  const highlight2Y = useTransform(smoothProgress, [0.34, 0.4, 0.5, 0.56], [50, 0, 0, -50]);
-  const highlight2Scale = useTransform(smoothProgress, [0.34, 0.4, 0.5, 0.56], [0.9, 1, 1, 1.1]);
+  // Hero Section (Shifted to start after intro)
+  const heroOpacity = useTransform(mainProgress, [0, 0.05, 0.08, 0.12], [0, 1, 1, 0]);
+  const heroScale = useTransform(mainProgress, [0, 0.12], [1, 0.8]);
+  const heroY = useTransform(mainProgress, [0, 0.12], [0, -50]);
 
-  const highlight3Opacity = useTransform(smoothProgress, [0.56, 0.62, 0.7, 0.76], [0, 1, 1, 0]);
-  const highlight3Y = useTransform(smoothProgress, [0.56, 0.62, 0.7, 0.76], [50, 0, 0, -50]);
-  const highlight3Scale = useTransform(smoothProgress, [0.56, 0.62, 0.7, 0.76], [0.9, 1, 1, 1.1]);
+  // Highlights Sequential Reveals - using mainProgress
+  const highlight1Opacity = useTransform(mainProgress, [0.12, 0.18, 0.28, 0.34], [0, 1, 1, 0]);
+  const highlight1Y = useTransform(mainProgress, [0.12, 0.18, 0.28, 0.34], [50, 0, 0, -50]);
+  const highlight1Scale = useTransform(mainProgress, [0.12, 0.18, 0.28, 0.34], [0.9, 1, 1, 1.1]);
 
-  // Theme Chapters Sequential Reveals (0.70 - 1.0)
-  const theme1Opacity = useTransform(smoothProgress, [0.70, 0.75, 0.80, 0.85], [0, 1, 1, 0]);
-  const theme1X = useTransform(smoothProgress, [0.70, 0.75, 0.80, 0.85], [-100, 0, 0, 100]);
+  const highlight2Opacity = useTransform(mainProgress, [0.34, 0.4, 0.5, 0.56], [0, 1, 1, 0]);
+  const highlight2Y = useTransform(mainProgress, [0.34, 0.4, 0.5, 0.56], [50, 0, 0, -50]);
+  const highlight2Scale = useTransform(mainProgress, [0.34, 0.4, 0.5, 0.56], [0.9, 1, 1, 1.1]);
 
-  const theme2Opacity = useTransform(smoothProgress, [0.85, 0.90, 0.95, 0.98], [0, 1, 1, 0]);
-  const theme2X = useTransform(smoothProgress, [0.85, 0.90, 0.95, 0.98], [100, 0, 0, -100]);
+  const highlight3Opacity = useTransform(mainProgress, [0.56, 0.62, 0.7, 0.76], [0, 1, 1, 0]);
+  const highlight3Y = useTransform(mainProgress, [0.56, 0.62, 0.7, 0.76], [50, 0, 0, -50]);
+  const highlight3Scale = useTransform(mainProgress, [0.56, 0.62, 0.7, 0.76], [0.9, 1, 1, 1.1]);
 
-  const theme3Opacity = useTransform(smoothProgress, [0.98, 1.0], [0, 1]);
-  const theme3Y = useTransform(smoothProgress, [0.98, 1.0], [100, 0]);
-  const theme3Rotate = useTransform(smoothProgress, [0.98, 1.0], [5, 0]);
+  // Theme Chapters Sequential Reveals - using mainProgress
+  const theme1Opacity = useTransform(mainProgress, [0.70, 0.75, 0.80, 0.85], [0, 1, 1, 0]);
+  const theme1X = useTransform(mainProgress, [0.70, 0.75, 0.80, 0.85], [-100, 0, 0, 100]);
 
-  // Background Opacities for different sections
-  const bg1Opacity = useTransform(smoothProgress, [0, 0.7, 0.8], [1, 1, 0]); // Image Sequence Base
-  const bgFragranceOpacity = useTransform(smoothProgress, [0.25, 0.35, 0.7, 0.75], [0, 1, 1, 0]); // Highlights
-  const bgThemeOpacity = useTransform(smoothProgress, [0.7, 0.75], [0, 1]); // Theme chapters
+  const theme2Opacity = useTransform(mainProgress, [0.85, 0.90, 0.95, 0.98], [0, 1, 1, 0]);
+  const theme2X = useTransform(mainProgress, [0.85, 0.90, 0.95, 0.98], [100, 0, 0, -100]);
+
+  const theme3Opacity = useTransform(mainProgress, [0.98, 1.0], [0, 1]);
+  const theme3Y = useTransform(mainProgress, [0.98, 1.0], [100, 0]);
+  const theme3Rotate = useTransform(mainProgress, [0.98, 1.0], [5, 0]);
+
+  // Background Opacities - using mainProgress
+  const bg1Opacity = useTransform(mainProgress, [0, 0.05, 0.7, 0.8], [0, 1, 1, 0]); // Image Sequence Base (Fades in after intro)
+  const bgFragranceOpacity = useTransform(mainProgress, [0.25, 0.35, 0.7, 0.75], [0, 1, 1, 0]); // Highlights
+  const bgThemeOpacity = useTransform(mainProgress, [0.7, 0.75], [0, 1]); // Theme chapters
 
   return (
-    <div id="theme-hero-container" ref={containerRef} className="relative h-[900vh] bg-emerald-950">
+    <div id="theme-hero-container" ref={containerRef} className="relative h-[1000vh] bg-emerald-950">
       {/* Dynamic Background Layers */}
       <div className="fixed inset-0 z-0 h-screen overflow-hidden">
-        {/* Layer 1: Image Sequence Journey */}
+        {/* Layer 0: Intro Image Sequence */}
+        <motion.div style={{ opacity: introOpacity }} className="absolute inset-0">
+          <ImageSequence
+            progress={introProgress}
+            frameCount={80}
+            directory={isMounted && window.innerWidth < 768 ? "/images/mobile/sequence_1" : "/images/desktop/sequence_1"}
+            prefix="ezgif-frame-"
+            extension="jpg"
+          />
+        </motion.div>
+
+        {/* Layer 1: Image Sequence Journey (Main) */}
         <motion.div style={{ opacity: bg1Opacity }} className="absolute inset-0">
           <ImageSequence
-            progress={smoothProgress}
+            progress={mainProgress}
             frameCount={120}
             directory={isMounted && window.innerWidth < 768 ? "/images/mobile/sequence_2" : "/images/desktop/sequence_2"}
             prefix="ezgif-frame-"
@@ -183,8 +201,9 @@ function ScrollIndicator({ label, targetId, isActive }: { label: string; targetI
     const totalHeight = container.offsetHeight;
 
     let targetProgress = 0;
-    if (targetId === 'highlights') targetProgress = 0.18; // First About section fully visible
-    if (targetId === 'theme') targetProgress = 0.80;      // Shows ThemeChapter1 with a glimpse of previous section
+    if (targetId === 'vbs2026') targetProgress = 0.11; // After intro
+    if (targetId === 'highlights') targetProgress = 0.27; // 0.1 + (0.18 * 0.9) approx 0.262
+    if (targetId === 'theme') targetProgress = 0.82;      // 0.1 + (0.80 * 0.9) approx 0.82
 
     const targetScroll = absoluteTop + (targetProgress * (totalHeight - window.innerHeight));
 
